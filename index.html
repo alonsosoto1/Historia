@@ -31,12 +31,27 @@
       .intro {
         font-size: 2rem;
       }
+
+      /* Animación de corazones */
+      .corazon {
+        display: inline-block;
+        animation: latido 1s infinite;
+      }
+
+      @keyframes latido {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.5); }
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <p class="intro">💙 <button id="boton">Vamos al Altar</button> 💙</p>
+      <p class="intro">
+        <span class="corazon">💙</span> 
+        <button id="boton">Vamos al Altar</button> 
+        <span class="corazon">💙</span>
+      </p>
     </div>
 
     <!-- Música -->
