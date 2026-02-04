@@ -4,17 +4,29 @@
     <meta charset="UTF-8" />
     <title>Para Mónica</title>
     <style>
+      /* Fondo degradado y estilos básicos */
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background: #f0f8ff;
         font-family: Arial, sans-serif;
+        background: linear-gradient(
+          to bottom,
+          #001f3f,   /* Navy */
+          #3aa178,   /* Verde eucalipto */
+          #ffffff,   /* Blanco */
+          #f5f5dc,   /* Beige */
+          #ffa07a    /* Salmón */
+        );
+        overflow: hidden; /* Para que los globos no se vean cortados */
       }
+
       .container {
         text-align: center;
+        position: relative; /* Necesario si queremos que los globos floten dentro */
       }
+
       #boton {
         padding: 15px 30px;
         font-size: 1.5rem;
@@ -25,9 +37,11 @@
         color: white;
         transition: transform 0.2s;
       }
+
       #boton:hover {
         transform: scale(1.1);
       }
+
       .intro {
         font-size: 2rem;
       }
@@ -44,6 +58,24 @@
         25% { transform: scale(1.3); }
         50% { transform: scale(1.5); }
         75% { transform: scale(1.3); }
+      }
+
+      /* Estilo para los globos/animalitos flotantes */
+      .flotante {
+        position: absolute;
+        font-size: 2rem; /* Se puede cambiar según tamaño */
+        animation: flotar 4s linear forwards;
+      }
+
+      @keyframes flotar {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-500px) scale(1.2);
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -70,6 +102,30 @@
       boton.addEventListener("click", () => {
         musica.play();
       });
+
+      // Función para crear globos/animalitos flotantes
+      const container = document.querySelector('.container');
+
+      function crearFlotante() {
+        const flotante = document.createElement('span');
+        flotante.className = 'flotante';
+        const emojis = ['🎈','🎉','🐻','🐶','💖']; // Puedes cambiar o agregar emojis
+        flotante.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // Posición horizontal aleatoria dentro del viewport
+        flotante.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+        flotante.style.top = window.innerHeight + 'px';
+
+        document.body.appendChild(flotante);
+
+        // Eliminar después de que termine la animación
+        setTimeout(() => {
+          flotante.remove();
+        }, 4000);
+      }
+
+      // Crear un flotante cada 0.7 segundos
+      setInterval(crearFlotante, 700);
     </script>
   </body>
 </html>
