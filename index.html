@@ -3,6 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <title>Para Mónica</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f0f8ff;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+      }
+      #boton {
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background-color: #87cefa;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        transition: transform 0.2s;
+      }
+      #boton:hover {
+        transform: scale(1.1);
+      }
+      .intro {
+        font-size: 2rem;
+      }
+    </style>
   </head>
 
   <body>
@@ -11,9 +40,9 @@
     </div>
 
     <!-- Música -->
-   <audio id="musica" loop>
-  <source src="february [xPM0gqAeidQ] (1).mp3" type="audio/mpeg" />
-</audio>
+    <audio id="musica" loop>
+      <source src="february [xPM0gqAeidQ] (1).mp3" type="audio/mpeg" />
+    </audio>
 
     <!-- Magia -->
     <script>
@@ -26,5 +55,3 @@
     </script>
   </body>
 </html>
-
-
