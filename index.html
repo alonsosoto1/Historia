@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Para Mónica</title>
   <style>
-    /* Estilos base y fondo degradado elegante */
+    /* Estilos base y fondo degradado alegre */
     body {
       margin: 0;
       padding: 0;
@@ -15,28 +15,26 @@
       align-items: center;
       font-family: Arial, sans-serif;
       overflow: hidden;
-
-      /* Fondo degradado con tus colores elegantes */
       background: linear-gradient(
         to bottom,
-        #5b6353,   /* verde eucalipto oscuro */
-        #a3a88c,   /* verde oliva suave */
-        #b69f6f,   /* dorado / beige cálido */
-        #d8c9a2,   /* beige claro / arena */
-        #fdfcf7    /* blanco cálido */
+        #ff9a9e,  /* rosa suave */
+        #fecfef,  /* durazno */
+        #fcd5ce,  /* melón */
+        #fff1e6,  /* beige cálido */
+        #ffffff   /* blanco cálido */
       );
     }
 
     .container {
       text-align: center;
-      position: relative; /* necesario para los flotantes */
+      position: relative;
     }
 
     #boton {
       padding: 15px 30px;
       font-size: 1.5rem;
       cursor: pointer;
-      background-color: #87cefa;
+      background-color: #ff6f91; /* botón rosado alegre */
       border: none;
       border-radius: 10px;
       color: white;
@@ -55,7 +53,7 @@
     .corazon {
       display: inline-block;
       animation: latido 1s infinite;
-      transform-origin: center; /* crece desde el centro */
+      transform-origin: center;
     }
 
     @keyframes latido {
@@ -68,8 +66,10 @@
     /* Flotantes realistas */
     .flotante {
       position: absolute;
-      width: 50px;  /* tamaño de la imagen */
+      width: 50px;
       animation: flotar linear forwards;
+      pointer-events: none;
+      image-rendering: auto;
     }
 
     @keyframes flotar {
@@ -88,8 +88,8 @@
 <body>
   <div class="container">
     <p class="intro">
-      <span class="corazon">💙</span> 
-      <button id="boton">Vamos al Altar</button> 
+      <span class="corazon">💙</span>
+      <button id="boton">Vamos al Altar</button>
       <span class="corazon">💙</span>
     </p>
   </div>
@@ -108,37 +108,31 @@
       musica.play();
     });
 
-    // Flotantes con imágenes realistas
+    // Imágenes flotantes confiables
     const flotantes = [
-      "https://i.ibb.co/3s0JqZk/globo.png",   // globo PNG
-      "https://i.ibb.co/7Gx6JfC/corazon.png", // corazón PNG
-      "https://i.ibb.co/FWfh3nT/oso.png"      // animalito PNG
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Red_heart.svg/1200px-Red_heart.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/5/55/Blue_balloon_icon.png",
+      "https://upload.wikimedia.org/wikipedia/commons/1/17/Teddy_bear_icon.png"
     ];
 
     function crearFlotante() {
       const flotante = document.createElement('img');
       flotante.className = 'flotante';
-
-      // Imagen aleatoria
       flotante.src = flotantes[Math.floor(Math.random() * flotantes.length)];
 
-      // Posición horizontal aleatoria
       flotante.style.left = Math.random() * (window.innerWidth - 50) + 'px';
       flotante.style.top = window.innerHeight + 'px';
 
-      // Duración aleatoria entre 3s y 6s
       const duracion = Math.random() * 3 + 3; 
       flotante.style.animationDuration = duracion + 's';
 
       document.body.appendChild(flotante);
 
-      // Eliminar después de la animación
       setTimeout(() => {
         flotante.remove();
       }, duracion * 1000);
     }
 
-    // Crear flotante cada 0.6 segundos
     setInterval(crearFlotante, 600);
   </script>
 </body>
