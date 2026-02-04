@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Para Mónica</title>
   <style>
-    /* Fondo alegre con degradado */
     body {
       margin: 0;
       padding: 0;
@@ -17,20 +16,22 @@
       overflow: hidden;
       background: linear-gradient(
         to bottom,
-        #ff9a9e,  /* rosa suave */
-        #fecfef,  /* durazno */
-        #fcd5ce,  /* melón */
-        #fff1e6,  /* beige cálido */
-        #ffffff   /* blanco cálido */
+        #ff9a9e,
+        #fecfef,
+        #fcd5ce,
+        #fff1e6,
+        #ffffff
       );
+      transition: opacity 1.5s;
     }
 
     .container {
       text-align: center;
       position: relative;
+      z-index: 2;
     }
 
-    #boton {
+    #boton, #boton-si {
       padding: 15px 30px;
       font-size: 1.5rem;
       cursor: pointer;
@@ -38,18 +39,22 @@
       border: none;
       border-radius: 10px;
       color: white;
-      transition: transform 0.2s;
+      transition: transform 0.2s, opacity 1s;
     }
 
-    #boton:hover {
+    #boton:hover, #boton-si:hover {
       transform: scale(1.1);
+    }
+
+    #boton-si {
+      display: none; /* Inicialmente oculto */
+      margin-top: 20px;
     }
 
     .intro {
       font-size: 2rem;
     }
 
-    /* Animación de corazones */
     .corazon {
       display: inline-block;
       animation: latido 1s infinite;
@@ -70,24 +75,17 @@
       font-weight: bold;
       animation: flotar linear forwards;
       pointer-events: none;
-      color: #3b3b98; /* azul intenso */
+      color: #3b3b98;
       text-shadow: 1px 1px 2px #fff;
       white-space: nowrap;
     }
 
     @keyframes flotar {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-600px) scale(1.2);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-600px) scale(1.2); opacity: 0; }
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <p class="intro">
@@ -95,6 +93,7 @@
       <button id="boton">Vamos al Altar</button>
       <span class="corazon">💙</span>
     </p>
+    <button id="boton-si">¿Sí?</button>
   </div>
 
   <!-- Música -->
@@ -103,41 +102,30 @@
   </audio>
 
   <script>
-    // Botón de música
     const boton = document.getElementById("boton");
+    const botonSi = document.getElementById("boton-si");
     const musica = document.getElementById("musica");
-
-    boton.addEventListener("click", () => {
-      musica.play();
-    });
 
     // Lista de flotantes
     const flotantes = [
-      "💙", "♪", "♪", "♪", "♪", "Parce", "Amor", "Vidita", "Silencio Santo", 
+      "💙", "♪", "Parce", "Amor", "Vidita", "Silencio Santo", 
       "Perdón Creativo", "San Carlo Acutis", "Virgen del Pilar", 
       "Masona", "12 de Octubre", "17 de oct", "Sagrada Familia", 
       "18 oct", "23 oct", "25 oct", "27 oct", "28 oct", 
       "22 de Abril", "22 de Marzo"
     ];
 
+    let intervaloFlotantes;
+
     function crearFlotante() {
       const flotante = document.createElement('div');
       flotante.className = 'flotante';
-      
-      // Elegir aleatoriamente un texto
       flotante.textContent = flotantes[Math.floor(Math.random() * flotantes.length)];
-
-      // Posición horizontal aleatoria
       flotante.style.left = Math.random() * (window.innerWidth - 100) + 'px';
       flotante.style.top = window.innerHeight + 'px';
-
-      // Tamaño aleatorio para variedad
       flotante.style.fontSize = (Math.random() * 20 + 14) + 'px';
-
-      // Duración aleatoria entre 4s y 8s
       const duracion = Math.random() * 4 + 4;
       flotante.style.animationDuration = duracion + 's';
-
       document.body.appendChild(flotante);
 
       setTimeout(() => {
@@ -145,9 +133,33 @@
       }, duracion * 1000);
     }
 
-    // Crear flotante cada 500ms
-    setInterval(crearFlotante, 500);
+    boton.addEventListener("click", () => {
+      musica.play();
+
+      // Iniciar flotantes
+      intervaloFlotantes = setInterval(crearFlotante, 500);
+
+      // Mostrar el botón "¿Sí?" después de 30 segundos
+      setTimeout(() => {
+        botonSi.style.display = 'inline-block';
+      }, 30000);
+    });
+
+    // Al presionar "¿Sí?" se desvanece todo
+    botonSi.addEventListener("click", () => {
+      // Detener flotantes
+      clearInterval(intervaloFlotantes);
+
+      // Desvanecer todo
+      document.body.style.opacity = 0;
+
+      // Opcional: aquí puedes cambiar de escena después de 1.5s
+      setTimeout(() => {
+        // Por ejemplo, reemplazar contenido o ir a otra página
+        document.body.innerHTML = "<h1 style='text-align:center;margin-top:40vh;'>Nueva Escena</h1>";
+        document.body.style.opacity = 1;
+      }, 1500);
+    });
   </script>
 </body>
 </html>
-
