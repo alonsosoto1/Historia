@@ -1,131 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Para Mónica</title>
-    <style>
-      /* Fondo degradado y estilos básicos */
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(
-          to bottom,
-          #001f3f,   /* Navy */
-          #3aa178,   /* Verde eucalipto */
-          #ffffff,   /* Blanco */
-          #f5f5dc,   /* Beige */
-          #ffa07a    /* Salmón */
-        );
-        overflow: hidden; /* Para que los globos no se vean cortados */
+<head>
+  <meta charset="UTF-8" />
+  <title>Para Mónica</title>
+  <style>
+    /* Estilos base y fondo degradado elegante */
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+
+      /* Fondo degradado con tus colores elegantes */
+      background: linear-gradient(
+        to bottom,
+        #5b6353,   /* verde eucalipto oscuro */
+        #a3a88c,   /* verde oliva suave */
+        #b69f6f,   /* dorado / beige cálido */
+        #d8c9a2,   /* beige claro / arena */
+        #fdfcf7    /* blanco cálido */
+      );
+    }
+
+    .container {
+      text-align: center;
+      position: relative; /* necesario para los flotantes */
+    }
+
+    #boton {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background-color: #87cefa;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      transition: transform 0.2s;
+    }
+
+    #boton:hover {
+      transform: scale(1.1);
+    }
+
+    .intro {
+      font-size: 2rem;
+    }
+
+    /* Animación de corazones */
+    .corazon {
+      display: inline-block;
+      animation: latido 1s infinite;
+      transform-origin: center; /* crece desde el centro */
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.3); }
+      50% { transform: scale(1.5); }
+      75% { transform: scale(1.3); }
+    }
+
+    /* Flotantes realistas */
+    .flotante {
+      position: absolute;
+      width: 50px;  /* tamaño de la imagen */
+      animation: flotar linear forwards;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
       }
-
-      .container {
-        text-align: center;
-        position: relative; /* Necesario si queremos que los globos floten dentro */
+      100% {
+        transform: translateY(-500px) scale(1.2);
+        opacity: 0;
       }
+    }
+  </style>
+</head>
 
-      #boton {
-        padding: 15px 30px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        background-color: #87cefa;
-        border: none;
-        border-radius: 10px;
-        color: white;
-        transition: transform 0.2s;
-      }
+<body>
+  <div class="container">
+    <p class="intro">
+      <span class="corazon">💙</span> 
+      <button id="boton">Vamos al Altar</button> 
+      <span class="corazon">💙</span>
+    </p>
+  </div>
 
-      #boton:hover {
-        transform: scale(1.1);
-      }
+  <!-- Música -->
+  <audio id="musica" loop>
+    <source src="february [xPM0gqAeidQ] (1).mp3" type="audio/mpeg" />
+  </audio>
 
-      .intro {
-        font-size: 2rem;
-      }
+  <script>
+    // Botón de música
+    const boton = document.getElementById("boton");
+    const musica = document.getElementById("musica");
 
-      /* Animación de corazones */
-      .corazon {
-        display: inline-block;
-        animation: latido 1s infinite;
-        transform-origin: center; /* Crece desde el centro */
-      }
+    boton.addEventListener("click", () => {
+      musica.play();
+    });
 
-      @keyframes latido {
-        0%, 100% { transform: scale(1); }
-        25% { transform: scale(1.3); }
-        50% { transform: scale(1.5); }
-        75% { transform: scale(1.3); }
-      }
+    // Flotantes con imágenes realistas
+    const flotantes = [
+      "https://i.ibb.co/3s0JqZk/globo.png",   // globo PNG
+      "https://i.ibb.co/7Gx6JfC/corazon.png", // corazón PNG
+      "https://i.ibb.co/FWfh3nT/oso.png"      // animalito PNG
+    ];
 
-      /* Estilo para los globos/animalitos flotantes */
-      .flotante {
-        position: absolute;
-        font-size: 2rem; /* Se puede cambiar según tamaño */
-        animation: flotar 4s linear forwards;
-      }
+    function crearFlotante() {
+      const flotante = document.createElement('img');
+      flotante.className = 'flotante';
 
-      @keyframes flotar {
-        0% {
-          transform: translateY(0) scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-500px) scale(1.2);
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
+      // Imagen aleatoria
+      flotante.src = flotantes[Math.floor(Math.random() * flotantes.length)];
 
-  <body>
-    <div class="container">
-      <p class="intro">
-        <span class="corazon">💙</span> 
-        <button id="boton">Vamos al Altar</button> 
-        <span class="corazon">💙</span>
-      </p>
-    </div>
+      // Posición horizontal aleatoria
+      flotante.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+      flotante.style.top = window.innerHeight + 'px';
 
-    <!-- Música -->
-    <audio id="musica" loop>
-      <source src="february [xPM0gqAeidQ] (1).mp3" type="audio/mpeg" />
-    </audio>
+      // Duración aleatoria entre 3s y 6s
+      const duracion = Math.random() * 3 + 3; 
+      flotante.style.animationDuration = duracion + 's';
 
-    <!-- Magia -->
-    <script>
-      const boton = document.getElementById("boton");
-      const musica = document.getElementById("musica");
+      document.body.appendChild(flotante);
 
-      boton.addEventListener("click", () => {
-        musica.play();
-      });
+      // Eliminar después de la animación
+      setTimeout(() => {
+        flotante.remove();
+      }, duracion * 1000);
+    }
 
-      // Función para crear globos/animalitos flotantes
-      const container = document.querySelector('.container');
-
-      function crearFlotante() {
-        const flotante = document.createElement('span');
-        flotante.className = 'flotante';
-        const emojis = ['🎈','🎉','🐻','🐶','💖']; // Puedes cambiar o agregar emojis
-        flotante.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-        // Posición horizontal aleatoria dentro del viewport
-        flotante.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-        flotante.style.top = window.innerHeight + 'px';
-
-        document.body.appendChild(flotante);
-
-        // Eliminar después de que termine la animación
-        setTimeout(() => {
-          flotante.remove();
-        }, 4000);
-      }
-
-      // Crear un flotante cada 0.7 segundos
-      setInterval(crearFlotante, 700);
-    </script>
-  </body>
+    // Crear flotante cada 0.6 segundos
+    setInterval(crearFlotante, 600);
+  </script>
+</body>
 </html>
